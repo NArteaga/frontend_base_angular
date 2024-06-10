@@ -9,6 +9,6 @@ export const environment = {
     socket: ''
   },
   siteKey: '6LfVg0wpAAAAAC6fNGwNCQ6ebgwxk5ruyRtejnh8',
-  prefix: 'sisat',
+  prefix: 'frontend',
   ciudadania: false
 };

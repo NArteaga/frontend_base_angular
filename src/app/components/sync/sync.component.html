@@ -1,0 +1,93 @@
+<p-inplace #forms styleClass="flex flex-col">
+  <ng-template pTemplate="display">
+    <div class="w-full text-center flex gap-3 justify-center">
+      @if (loading) {
+        <div class="flex items-center">
+          <i class="pi pi-spin pi-cog text-2xl"></i>
+        </div>
+      }
+      <div>
+        <span class="font-bold text-lg md:text-xl">{{ loading ? message : 'Obtener Información del SAC' }}</span>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <p-blockUI [target]="sync" [blocked]="loading" styleClass="flex flex-col">
+      @if (porcentage > -1) {
+        <p-knob [(ngModel)]="porcentage" [strokeWidth]="12" valueTemplate="{value}%" [readonly]="true" [tabindex]="porcentage" valueColor="MediumTurquoise" textColor="#ffffff"></p-knob>
+      } @else {
+        <i class="pi pi-spin pi-cog text-white" style="font-size: 3rem"></i>
+      }
+      <span class="text-base font-bold text-white">{{ message }}</span>
+      <p-button label="Ocultar" severity="danger" icon="pi pi-eye-slash" (click)="forms.deactivate()"></p-button>
+    </p-blockUI>
+    <p-card #sync styleClass="w-full">
+      <div class="text-center w-full mb-4">
+        <span class="text-2xl font-bold mb-4 cursor-pointer" (click)="forms.deactivate()">Obtener la Información del SAC</span>
+      </div>
+      <form [formGroup]="form" class="grid grid-cols-12 gap-2">
+        @for (input of inputs; track $index)  {
+          <div class="{{input.style}} p-fluid">
+            @if (input.type === 'text') {
+              <label [for]="input.control" class="font-bold">{{ input.label }}</label>
+              <input
+                [id]="input.control"
+                type="text"
+                pInputText
+                class="w-full"
+                [formControlName]="input.control"
+                autocomplete="off"/>
+            }
+            @if (input.type === 'select') {
+              <span class="font-bold">{{ input.label }}</span>
+              <p-dropdown
+                [options]="input?.options"
+                [showClear]="true"
+                styleClass="w-full"
+                [filter]="true"
+                optionLabel="label"
+                optionValue="value"
+                filterBy="label"
+                appendTo="body"
+                [formControlName]="input.control"
+              ></p-dropdown>
+            }
+            @if (input.type === 'chip') {
+              <label [for]="input.control" class="font-bold">{{ input.label }}</label>
+              <p-chips [inputId]="input.control" [formControlName]="input.control" separator=","></p-chips>
+            }
+            @if (input.type === 'number') {
+              <label [for]="input.control" class="font-bold">{{ input.label }}</label>
+              <p-inputNumber [inputId]="input.control" [formControlName]="input.control" [useGrouping]="false"></p-inputNumber>
+            }
+            @if (input.type === 'calendar') {
+              <label [for]="input.control" class="font-bold">{{ input.label }}</label>
+              <p-calendar
+                [formControlName]="input.control"
+                iconDisplay="input"
+                [showIcon]="true"
+                [view]="input.calendar?.view || 'date'"
+                [dateFormat]="input.calendar?.format || 'dd/mm/yy'"
+                [inputId]="input.control"
+                placeholder="DD/MM/YYYY"
+                [maxDate]="maxDateControl(input.calendar?.maxDate)"
+                [minDate]="minDateControl(input.calendar?.minDate)"
+                appendTo="body"
+              ></p-calendar>
+            }
+            @for (rule of input.rules; track $index) {
+              @if (form.controls[input.control].invalid && (form.controls[input.control].dirty || form.controls[input.control].touched) && form.getError(rule.rule, input.control)) {
+                <small class="p-error">{{ rule.message }}</small>
+              }
+            }
+          </div>
+        }
+        <div class="col-span-12 flex justify-center gap-2">
+          <p-button label="Generar" icon="pi pi-cog" severity="help" [raised]="true" (click)="clSync()" [loading]="loading"></p-button>
+          <p-button label="Ocultar" icon="pi pi-eye-slash" severity="danger" (click)="forms.deactivate()" [loading]="loading"></p-button>
+        </div>
+      </form>
+    </p-card>
+
+  </ng-template>
+</p-inplace>

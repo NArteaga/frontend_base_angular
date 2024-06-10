@@ -1,0 +1,13 @@
+:host ::ng-deep {
+  .p-dialog .p-dialog-header {
+    background-color: var(--bg-menu);
+    color: var(--bg-option);
+    padding: 1rem 1.5rem;
+    .p-dialog-header-icon {
+      color: var(--bg-option);
+    }
+  }
+  .p-dialog .p-dialog-content {
+    padding-top: 0.5rem;
+  }
+}

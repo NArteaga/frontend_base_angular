@@ -1,0 +1,11 @@
+<p-toolbar styleClass="rounded-none px-4 py-2 bg-transparent border-0 w-full">
+  <div class="p-toolbar-group-start cursor-pointer" (click)="logo()">
+    <picture>
+      <source srcset="assets/img/logoFNDR.avif" type="image/avif">
+      <img src="assets/img/logoFNDR.webp" alt="Imagen de fondo" height="50px" decoding="async">
+    </picture>
+  </div>
+  <div class="p-toolbar-group-end">
+    <p-button icon="pi pi-{{ theme }}" [rounded]="true" [raised]="true" severity="secondary" (click)="changeTheme()"></p-button>
+  </div>
+</p-toolbar>

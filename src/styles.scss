@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+@layer tailwind-base, primeng, tailwind-utilities;
+
+@layer tailwind-utilities {
+    @tailwind utilities;
+}
+
+html, body { height: 100%; }
+
+body {
+  margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.required:before {
+  content:"* ";
+  color: red;
+  font-size: large;
+}
+
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+host ::ng-deep {
+  .p-dropdown .p-overlay {
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+  }
+  .p-dropdown .p-dropdown-panel {
+    min-width: none;
+    position: fixed;
+  }
+}

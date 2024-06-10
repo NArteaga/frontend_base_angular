@@ -1,0 +1,17 @@
+:host ::ng-deep {
+  .p-highlight {
+    background: none;
+    color: var(--bg-option);
+  }
+  .p-treenode-content .p-tree-toggler:enabled:hover {
+    background: none;
+    color: var(--bg-option);
+  }
+  .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {
+    background: none;
+    color: var(--bg-option);
+  }
+  .p-tree .p-tree-container .p-treenode:focus > .p-treenode-content {
+    box-shadow: none;
+  }
+}
